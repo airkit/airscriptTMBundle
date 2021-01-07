@@ -12,7 +12,7 @@
 	<array>
 		<dict>
 			<key>match</key>
-			<string>\b((?i:IF))\b</string>
+			<string>\b((?i:IF)|(?i:FROM)|(?i:IN)|(?i:WHERE)|(?i:SELECT))\b</string>
 			<key>name</key>
 			<string>keyword.control.untitled</string>
 		</dict>
