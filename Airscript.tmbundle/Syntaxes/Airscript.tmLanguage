@@ -20,7 +20,7 @@
 			<key>match</key>
 			<string>\b(?:ABS)|(?:ACOS)|(?:ACOSH)|(?:ACOT)|(?:ACOTH)|(?:ADD_TO_DATETIME)|(?:ARABIC)|(?:ASIN)|(?:ASINH)|(?:ASSET_TO_URI)|(?:ATAN)|(?:ATAN2)|(?:ATANH)|(?:BASE)|(?:BASE64_DECODE)|(?:BASE64_ENCODE)|(?:CEILING)|(?:COMBIN)|(?:COMBINA)|(?:CONCAT)|(?:CONTAINS)|(?:COS)|(?:COSH)|(?:COT)|(?:COTH)|(?:CSC)|(?:CSCH)|(?:CURRENCY)|(?:DATE)|(?:DATE_DELTA)|(?:DATE_FROM_DATETIME)|(?:DATE_FROM_FORMAT)|(?:DATETIME)|(?:DATETIME_DELTA)|(?:DATETIME_FROM_FORMAT)|(?:DATETIME_FROM_TIMESTAMP)|(?:DAY)|(?:DAYS)|(?:DEGREES)|(?:EVEN)|(?:EXP)|(?:FACT)|(?:FACT_FLOAT)|(?:FLAT)|(?:FLOOR)|(?:FORMAT_PHONE)|(?:FORMAT_CURRENCY)|(?:FORMAT_DATE)|(?:FORMAT_DATETIME)|(?:FORMAT_NUMBER)|(?:FORMAT_TIME)|(?:FROM_JSON)|(?:GCD)|(?:HOUR)|(?:IDENTIFIER_FROM_ASSET)|(?:IF)|(?:ISEMAIL)|(?:ISEMPTY)|(?:ISEVEN)|(?:ISNOTEMPTY)|(?:ISNUMBER)|(?:ISO_WEEK)|(?:ISODD)|(?:ISPHONE)|(?:ISSTRING)|(?:JOIN)|(?:LATLNGDISTANCE)|(?:LCM)|(?:LENGTH)|(?:LN)|(?:LOG)|(?:LOWERCASE)|(?:MAX)|(?:MERGE_OBJECTS)|(?:MIN)|(?:MINUTE)|(?:MONTH)|(?:MROUND)|(?:MULTINOMIAL)|(?:NOT)|(?:NOW)|(?:ODD)|(?:PADSTRING)|(?:PARSE_CURRENCY)|(?:PARSE_NUMBER)|(?:PARSE_PHONE)|(?:PI)|(?:POWER)|(?:PRODUCT)|(?:RADIANS)|(?:RANDOM)|(?:RANGE)|(?:REPLACE)|(?:REPT)|(?:ROMAN)|(?:ROUND)|(?:ROUNDDOWN)|(?:ROUNDUP)|(?:SEC)|(?:SECH)|(?:SECOND)|(?:SHUFFLE)|(?:SIGN)|(?:SIN)|(?:SINH)|(?:SPLIT)|(?:SQRT)|(?:SQRTPI)|(?:STRING_COMPARE)|(?:STRING_FIND)|(?:STRIP)|(?:SUBSTITUTE)|(?:SUBSTRING)|(?:SUBTRACT_FROM_DATETIME)|(?:SUM)|(?:SUMSQ)|(?:TAN)|(?:TANH)|(?:TIME)|(?:TIME_DELTA)|(?:TIME_FROM_DATETIME)|(?:TIME_FROM_FORMAT)|(?:TIMESTAMP_FROM_DATETIME)|(?:TITLECASE)|(?:TO_JSON)|(?:TODAY)|(?:TRIM)|(?:TRUNC)|(?:TYPEOF)|(?:UPDATE_DATE)|(?:UPDATE_DATETIME)|(?:UPDATE_DAY)|(?:UPDATE_HOUR)|(?:UPDATE_MILLISECOND)|(?:UPDATE_MINUTE)|(?:UPDATE_MONTH)|(?:UPDATE_SECOND)|(?:UPDATE_TIME)|(?:UPDATE_TIMEZONE)|(?:UPDATE_YEAR)|(?:UPPERCASE)|(?:URI_TO_ASSET)|(?:URL_DECODE)|(?:URL_ENCODE)|(?:VALUES)|(?:WEEK)|(?:WEEKDAY)|(?:YEAR)\b</string>
 			<key>name</key>
-			<string>entity.name.function</string>
+			<string>entity.name.function.airscript</string>
 		</dict>
 		<dict>
 			<key>begin</key>
@@ -28,7 +28,7 @@
 			<key>end</key>
 			<string>"</string>
 			<key>name</key>
-			<string>string.quoted.double.untitled</string>
+			<string>string.quoted.double.airscript</string>
 			<key>patterns</key>
 			<array>
 				<dict>
@@ -39,7 +39,55 @@
 				</dict>
 			</array>
 		</dict>
+		<dict>
+			<key>include</key>
+			<string>#numbers</string>
+		</dict>
 	</array>
+	<key>repository</key>
+	<dict>
+		<key>numbers</key>
+		<dict>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;!\w|\$)0[xX]\h+\b</string>
+					<key>name</key>
+					<string>constant.numeric.hex.airscript</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;!\w|\$)0[bB][01]+\b</string>
+					<key>name</key>
+					<string>constant.numeric.binary.airscript</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?&lt;!\w|\$)0[oO][0-7]+\b</string>
+					<key>name</key>
+					<string>constant.numeric.octal.airscript</string>
+				</dict>
+				<dict>
+					<key>match</key>
+					<string>(?x)
+        				(?&lt;!\w|\$)							    # Ensure word boundry
+                        [+-]?                                   # Optional sign
+        				(?&gt;
+        					(
+        						(0|[1-9][0-9]*)(\.[0-9]*)?		# 0 or 1 or 1. or 1.0
+        					  | \.[0-9]+						# .1
+        					)
+        					([eE][+-]?[0-9]+)?					# Exponent
+        				)
+        				(?!\w)									# Ensure word boundry
+        			</string>
+					<key>name</key>
+					<string>constant.numeric.airscript</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>scopeName</key>
 	<string>source.untitled</string>
 	<key>uuid</key>
